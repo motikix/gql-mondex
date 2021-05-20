@@ -1,2 +1,2 @@
-gql-pokedex
+gql-mondex
 ==
