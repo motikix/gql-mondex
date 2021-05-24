@@ -34,8 +34,8 @@ const genMon = (mon: typeof mons[0]): Mon => {
   const m = new Mon()
   m.mid = mon.mid
   m.sid = mon.sid
-  m.name = mon.name
-  m.sname = mon.sname
+  m._name = mon.name
+  m._sname = mon.sname
   m.sexes = mon.sexes.flatMap(s => sex.find(ss => ss.id === s)?.name ?? [])
   m.class = clazz.find(c => c.id === mon.class)?.name
   m.types = mon.types.flatMap(t => type.find(tt => tt.id === t)?.name ?? [])
@@ -52,7 +52,8 @@ const genMon = (mon: typeof mons[0]): Mon => {
       return []
     }
   })
-  m.hp = mon.hp
+  // m.hp = mon.hp
+  m.hp = 1.5
   m.atk = mon.atk
   m.def = mon.def
   m.satk = mon.satk

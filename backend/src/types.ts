@@ -8,17 +8,19 @@ export class Mon {
   @Field()
   sid: number
 
-  @Field()
-  name: string
+  _name: string
+  _sname?: string
 
-  @Field({ nullable: true })
-  sname?: string
+  @Field(() => String)
+  get name() {
+    return this._name + (this._sname ? `（${this._sname}）` : '')
+  }
 
   @Field(() => [String])
   sexes: string[]
 
   @Field(() => String)
-  class: string
+  class?: string
 
   @Field(() => [String])
   types: string[]
