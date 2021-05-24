@@ -1,34 +1,20 @@
-import { ApolloServer, gql } from 'apollo-server'
+/**
+ * モン図鑑
+ */
 
-const typeDefs = gql`
-  type Book {
-    title: String
-    author: String
-  }
+import 'reflect-metadata'
+import { ApolloServer } from 'apollo-server'
+import { buildSchemaSync } from 'type-graphql'
+import { MonResolver } from './resolvers'
 
-  type Query {
-    books: [Book]
-  }
-`
+const schema = buildSchemaSync({
+  resolvers: [MonResolver],
+})
 
-const books = [
-  {
-    title: 'The Awakening',
-    author: 'Kate Chopin',
-  },
-  {
-    title: 'City of Glass',
-    author: 'Paul Auster',
-  },
-]
-
-const resolvers = {
-  Query: {
-    books: () => books,
-  },
-}
-
-const server = new ApolloServer({ typeDefs, resolvers })
+const server = new ApolloServer({
+  schema,
+  playground: true,
+})
 
 server.listen().then(({ url }) => {
   console.log(`Server ready at ${url}`)
