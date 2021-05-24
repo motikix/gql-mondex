@@ -1,6 +1,6 @@
 import { Query, Resolver, Arg } from 'type-graphql'
-import { Mon, Characteristic, Evolution } from './types'
-import { mons, sex, styleName, clazz, type, characteristic } from './db'
+import { Mon, Characteristic, Evolution, AnotherStyle } from './types'
+import { mons, sex, clazz, type, characteristic } from './db'
 
 @Resolver(Mon)
 export class MonResolver {
@@ -19,9 +19,9 @@ export class MonResolver {
   @Query(() => Mon, { nullable: true })
   mon(
     @Arg('mid') mid: number,
-    @Arg('style', { nullable: true, defaultValue: 0 }) style: number
+    @Arg('sid', { nullable: true, defaultValue: 0 }) sid: number
   ) {
-    const m = mons.find(m => m.mid === mid && m.style === style)
+    const m = mons.find(m => m.mid === mid && m.sid === sid)
     return m ? genMon(m) : null
   }
 }
@@ -33,16 +33,16 @@ export class MonResolver {
 const genMon = (mon: typeof mons[0]): Mon => {
   const m = new Mon()
   m.mid = mon.mid
-  m.style = mon.style
+  m.sid = mon.sid
   m.name = mon.name
-  m.styleName = styleName.find(s => s.sid === mon.styleName)?.name
-  m.sexes = mon.sexes.flatMap(s => sex.find(ss => ss.sid === s)?.name ?? [])
-  m.class = clazz.find(c => c.cid === mon.class)?.name
-  m.types = mon.types.flatMap(t => type.find(tt => tt.tid === t)?.name ?? [])
+  m.sname = mon.sname
+  m.sexes = mon.sexes.flatMap(s => sex.find(ss => ss.id === s)?.name ?? [])
+  m.class = clazz.find(c => c.id === mon.class)?.name
+  m.types = mon.types.flatMap(t => type.find(tt => tt.id === t)?.name ?? [])
   m.height = mon.height
   m.weight = mon.weight
   m.characteristics = mon.characteristics.flatMap(c => {
-    const character = characteristic.find(cc => cc.cid === c)
+    const character = characteristic.find(cc => cc.id === c)
     if (character) {
       const ins = new Characteristic()
       ins.name = character.name
@@ -65,12 +65,25 @@ const genMon = (mon: typeof mons[0]): Mon => {
       const evo = new Evolution()
       evo.mid = emon.mid
       evo.name = emon.name
-      evo.types = emon.types.flatMap(t => type.find(tt => tt.tid === t)?.name ?? [])
+      evo.types = emon.types.flatMap(t => type.find(tt => tt.id === t)?.name ?? [])
       return evo
     } else {
       return []
     }
   })
-  m.anotherStyles = mon.anotherStyles
+  m.anotherStyles = mon.anotherStyles.flatMap(a => {
+    const amon = mons.find(mm => mm.mid === mon.mid && mm.sid === a)
+    if (amon) {
+      const ano = new AnotherStyle()
+      ano.mid = amon.mid
+      ano.sid = amon.sid
+      ano.name = amon.name
+      ano.sname = amon.sname
+      ano.types = amon.types.flatMap(t => type.find(tt => tt.id === t)?.name ?? [])
+      return ano
+    } else {
+      return []
+    }
+  })
   return m
 }

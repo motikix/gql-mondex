@@ -6,13 +6,13 @@ export class Mon {
   mid: number
 
   @Field()
-  style: number
+  sid: number
 
   @Field()
   name: string
 
   @Field()
-  styleName?: string
+  sname?: string
 
   @Field(() => [String])
   sexes: string[]
@@ -53,13 +53,11 @@ export class Mon {
   @Field(() => [String])
   descriptions: string[]
 
-  // NOTE: Mon をそのまま再利用するとリゾルバが無限ループするので、簡易情報に留める
-  // TODO: anotherStyle でも同じことを考えると、型名は変えたほうが良さそうだ
   @Field(() => [Evolution])
   evolutions: Evolution[]
 
-  @Field(() => [Number])
-  anotherStyles: number[]
+  @Field(() => [AnotherStyle])
+  anotherStyles: AnotherStyle[]
 }
 
 @ObjectType()
@@ -78,6 +76,24 @@ export class Evolution {
 
   @Field()
   name: string
+
+  @Field(() => [String])
+  types: string[]
+}
+
+@ObjectType()
+export class AnotherStyle {
+  @Field()
+  mid: number
+
+  @Field()
+  sid: number
+
+  @Field()
+  name: string
+
+  @Field({ nullable: true })
+  sname?: string
 
   @Field(() => [String])
   types: string[]
