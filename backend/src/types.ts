@@ -11,14 +11,14 @@ export class Mon {
   @Field()
   name: string
 
-  @Field()
+  @Field({ nullable: true })
   sname?: string
 
   @Field(() => [String])
   sexes: string[]
 
   @Field(() => String)
-  class?: string
+  class: string
 
   @Field(() => [String])
   types: string[]
