@@ -1,4 +1,10 @@
-import { ObjectType, Field } from 'type-graphql'
+import { ObjectType, InputType, Field } from 'type-graphql'
+
+@InputType()
+export class Filter {
+  @Field({ nullable: true })
+  name: string
+}
 
 @ObjectType()
 export class Mon {

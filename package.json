@@ -1,0 +1,16 @@
+{
+  "name": "gql-mondex",
+  "description": "pokedex with graphql (graphql practice)",
+  "version": "0.0.1",
+  "author": "syuni <motikix@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "start": "yarn run build:front && yarn workspace @gql-mondex/backend run start",
+    "build:front": "yarn workspace @gql-mondex/frontend run build"
+  }
+}

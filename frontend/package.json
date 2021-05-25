@@ -1,6 +1,7 @@
 {
-  "name": "frontend",
-  "version": "0.0.0",
+  "name": "@gql-mondex/frontend",
+  "version": "0.0.1",
+  "description": "gql-mondex frontend",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",

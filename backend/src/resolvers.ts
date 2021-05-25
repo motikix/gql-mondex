@@ -1,5 +1,5 @@
 import { Query, Resolver, Arg } from 'type-graphql'
-import { Mon, Characteristic, Evolution, AnotherStyle } from './types'
+import { Filter, Mon, Characteristic, Evolution, AnotherStyle } from './types'
 import { mons, sex, clazz, type, characteristic } from './db'
 
 @Resolver(Mon)
@@ -9,7 +9,9 @@ export class MonResolver {
    * モン達を返す
    */
   @Query(() => [Mon])
-  mons() {
+  mons(
+    @Arg('filter', { nullable: true }) filter?: Filter
+  ) {
     return mons.map(mon => genMon(mon))
   }
 

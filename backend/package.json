@@ -1,7 +1,7 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "description": "",
+  "name": "@gql-mondex/backend",
+  "version": "0.0.1",
+  "description": "gql-mondex backend",
   "main": "dist/index.js",
   "scripts": {
     "start": "npm run build && node ./dist/index.js",
@@ -9,9 +9,6 @@
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@types/node": "^15.3.1",
     "ts-node-dev": "^1.1.6",
