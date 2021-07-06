@@ -2,8 +2,11 @@ import { ObjectType, InputType, Field } from 'type-graphql'
 
 @InputType()
 export class Filter {
-  @Field({ nullable: true })
-  name: string
+  @Field(() => [Number], { nullable: "itemsAndList" })
+  types?: number[]
+
+  @Field(() => [Number], { nullable: "itemsAndList" })
+  characteristics?: number[]
 }
 
 @ObjectType()
@@ -25,7 +28,7 @@ export class Mon {
   @Field(() => [String])
   sexes: string[]
 
-  @Field(() => String)
+  @Field()
   class?: string
 
   @Field(() => [String])
@@ -69,7 +72,37 @@ export class Mon {
 }
 
 @ObjectType()
+export class Sex {
+  @Field()
+  id: number
+
+  @Field()
+  name: string
+}
+
+@ObjectType()
+export class Class {
+  @Field()
+  id: number
+
+  @Field()
+  name: string
+}
+
+@ObjectType()
+export class Type {
+  @Field()
+  id: number
+
+  @Field()
+  name: string
+}
+
+@ObjectType()
 export class Characteristic {
+  @Field()
+  id: number
+
   @Field()
   name: string
 

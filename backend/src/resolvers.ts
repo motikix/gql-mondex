@@ -1,5 +1,5 @@
 import { Query, Resolver, Arg } from 'type-graphql'
-import { Filter, Mon, Characteristic, Evolution, AnotherStyle } from './types'
+import { Filter, Mon, Characteristic, Evolution, AnotherStyle, Sex, Class, Type } from './types'
 import { mons, sex, clazz, type, characteristic } from './db'
 
 @Resolver(Mon)
